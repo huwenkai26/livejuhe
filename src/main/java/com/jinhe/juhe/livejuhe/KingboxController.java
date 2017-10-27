@@ -21,6 +21,7 @@ public class KingboxController {
 
     public String domain() {
 
+
         List<Thread> Threadlist = new ArrayList<Thread>();
         final StringBuilder stringBuilder = new StringBuilder();
 
@@ -43,8 +44,6 @@ public class KingboxController {
                     @Override
                     public void run() {
                         String result = HttpUtils.httpRequest(url + "/" + indexBean.data.get(finalI).cid);
-
-
                         IndexBean.DataEntity dataEntity = indexBean.data.get(finalI);
 
 
@@ -119,7 +118,7 @@ public class KingboxController {
                 e.printStackTrace();
             }
 
-            System.out.println("quanbuwanc ");
+            System.out.println("全部完成 ");
             return JSON.toJSONString(indexBean);
 
         }

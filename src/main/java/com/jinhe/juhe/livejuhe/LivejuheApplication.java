@@ -1,12 +1,9 @@
 package com.jinhe.juhe.livejuhe;
 
-import com.jinhe.juhe.livejuhe.KingboxController;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -18,6 +15,12 @@ public class LivejuheApplication {
 	@ResponseBody
 	String livejuhe() {
 		return new KingboxController().domain();
+	}
+
+	@RequestMapping(value="/livejuhe/{id}", method = {RequestMethod.GET})
+	@ResponseBody
+	Platforminfo livejuhe2(@PathVariable(value="id") Integer id) {
+		return new KingboxController2().domain(id);
 	}
 
 	public static void main(String[] args) throws Exception {

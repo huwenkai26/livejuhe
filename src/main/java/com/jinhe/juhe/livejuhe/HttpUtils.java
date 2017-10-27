@@ -51,14 +51,14 @@ public class HttpUtils {
 
         StringBuffer buffer = new StringBuffer();
         try {
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("121.229.118.162", 8118));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("118.114.77.47", 8080));
             URL url = new URL(req_url);
             HttpURLConnection httpUrlConn = (HttpURLConnection)url.openConnection(proxy);
             httpUrlConn.setDoOutput(true);
             httpUrlConn.setDoInput(true);
             httpUrlConn.setUseCaches(false);
-            httpUrlConn.setConnectTimeout(30000);
-            httpUrlConn.setReadTimeout(30000);
+            httpUrlConn.setConnectTimeout(3000);
+            httpUrlConn.setReadTimeout(3000);
             httpUrlConn.setRequestMethod("GET");
             httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Mobile Safari/537.36");
 //            httpUrlConn.setRequestProperty("Cookie", "yd_cookie=c2765ac4-3cf1-4e3d091843a746ad549f6007457fcff355d4; yunsuo_session_verify=fb11026077f7ae2aa07e37f844c7d10b");
@@ -68,7 +68,7 @@ public class HttpUtils {
 //             httpUrlConn.setRequestProperty("Cookie", "yd_cookie=c2765ac4-3cf1-4e3d091843a746ad549f6007457fcff355d4; yunsuo_session_verify=fb11026077f7ae2aa07e37f844c7d10b");
 //            httpUrlConn.setRequestProperty("Host", "renminren.com");
             httpUrlConn.connect();  //发送请求
-            if (httpUrlConn.getResponseCode() == 200) {
+
 
                 // 将返回的输入流转换成字符串
                 InputStream inputStream = httpUrlConn.getInputStream();
@@ -86,10 +86,25 @@ public class HttpUtils {
                 inputStream = null;
                 httpUrlConn.disconnect();
 
-            }
 
-        } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println("1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            System.out.println("12");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            System.out.println("123");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            System.out.println("124");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("125");
+
         }
         return buffer.toString();
     }
