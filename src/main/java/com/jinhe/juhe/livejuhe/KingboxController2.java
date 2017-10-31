@@ -9,9 +9,9 @@ public class KingboxController2 {
     private static String url = "http://pz.haizisou.cn:8099/kingbox/stream";
     private List<Thread> Threadlist;
 
-    public Platforminfo domain(Integer id) {
+    public Platforminfo domain(Integer id, String ip, Integer port) {
                     Threadlist = new ArrayList<>();
-                    String result = HttpUtils.httpRequest(url + "/" +id);
+                    String result = HttpUtils.httpRequest(url + "/" +id,ip,port);
         System.out.println(result);
                     if (result.isEmpty()) {
 
@@ -29,7 +29,7 @@ public class KingboxController2 {
                         Thread thread1 = new Thread() {
                             @Override
                             public void run() {
-                                String result = HttpUtils.httpRequest(url + "/" + id + "/" + platforminfo.data.get(finalJ).roomid);
+                                String result = HttpUtils.httpRequest(url + "/" + id + "/" + platforminfo.data.get(finalJ).roomid, ip, port);
 
 
                                 if (result.isEmpty()) {

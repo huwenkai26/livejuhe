@@ -43,22 +43,35 @@ public class HttpUtils {
     /**
      * 发起http请求获取返回结果
      * @param req_url 请求地址
-     * @return
+     * @param ip
+     * @param port @return
      */
-    public static String httpRequest(String req_url) {
+    public static String httpRequest(String req_url, String ip, Integer port) {
 
+//        if(ip.isEmpty()&&port!=null){
+//            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("113.200.214.164", 9999));
+//            httpUrlConn = (HttpURLConnection)url.openConnection(proxy);
+//        }else {
+//            httpUrlConn = (HttpURLConnection)url.openConnection();
+//        }
 
 
         StringBuffer buffer = new StringBuffer();
         try {
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("118.114.77.47", 8080));
+
             URL url = new URL(req_url);
-            HttpURLConnection httpUrlConn = (HttpURLConnection)url.openConnection(proxy);
+            HttpURLConnection httpUrlConn = null;
+                    if(!ip.isEmpty()&&port!=null){
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, port));
+            httpUrlConn = (HttpURLConnection)url.openConnection(proxy);
+        }else {
+            httpUrlConn = (HttpURLConnection)url.openConnection();
+        }
             httpUrlConn.setDoOutput(true);
             httpUrlConn.setDoInput(true);
             httpUrlConn.setUseCaches(false);
-            httpUrlConn.setConnectTimeout(3000);
-            httpUrlConn.setReadTimeout(3000);
+            httpUrlConn.setConnectTimeout(10000);
+            httpUrlConn.setReadTimeout(10000);
             httpUrlConn.setRequestMethod("GET");
             httpUrlConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Mobile Safari/537.36");
 //            httpUrlConn.setRequestProperty("Cookie", "yd_cookie=c2765ac4-3cf1-4e3d091843a746ad549f6007457fcff355d4; yunsuo_session_verify=fb11026077f7ae2aa07e37f844c7d10b");
@@ -103,7 +116,7 @@ public class HttpUtils {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("125");
+            System.out.println("代理异常"+req_url);
 
         }
         return buffer.toString();
