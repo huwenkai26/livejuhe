@@ -1,4 +1,4 @@
-package com.jinhe.juhe.livejuhe;
+package com.jinhe.juhe.livejuhe.model;
 
 import java.util.List;
 

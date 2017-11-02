@@ -1,4 +1,4 @@
-package com.jinhe.juhe.livejuhe;
+package com.jinhe.juhe.livejuhe.utils;
 
 import java.io.*;
 import java.net.*;
@@ -232,10 +232,18 @@ public class HttpUtils {
 
 
             // 设置通用的请求属性
+            if(url.contains("rooms")||url.contains("getUrl")){
+            conn.setRequestProperty("accesstoken", "30e8f83be9bf4406ddd5fd83f40c377fcbb37065158123436f5f284ba45635f5");}
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("user-agent","okhttp/3.6.0");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("appv", "17");
+            conn.setRequestProperty("network", "WIFI");
+            conn.setRequestProperty("osn", "ANDROID");
+            conn.setRequestProperty("osv", "4.4.4");
+            conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
+            conn.setRequestProperty("Host", "api.jushiyaoye.com");
 
             conn.connect();
 
@@ -246,8 +254,7 @@ public class HttpUtils {
             // flush输出流的缓冲
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
