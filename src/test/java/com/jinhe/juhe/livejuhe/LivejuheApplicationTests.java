@@ -1,9 +1,7 @@
 package com.jinhe.juhe.livejuhe;
 
-import com.jinhe.juhe.livejuhe.utils.DESUtil;
-import com.jinhe.juhe.livejuhe.utils.HMACSHA256Utils;
-import com.jinhe.juhe.livejuhe.utils.HttpUtils;
-import com.jinhe.juhe.livejuhe.utils.Illllllll;
+import com.jinhe.juhe.livejuhe.utils.*;
+import com.sun.corba.se.impl.encoding.CodeSetConversion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,12 +40,23 @@ public class LivejuheApplicationTests {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
+//		long timeMillis = System.currentTimeMillis();
 
-		String decrypt = DESUtil.decrypt("sQhzkpalix9zjEaMXgU7I7Zus997QnzVPKJxCmIR1bci+Qf2sMQPcDW6QoSD2whuqwhKc+WlKsJa2mmAElwtDwK04wpXc+rq","!ln1j2Z9");
-//		String encode = URLEncoder.encode(decrypt);
+
+//		String data = "277103095android1.1.01506996174750";
+//
+//		String key = "d6dffc12cff144899cabd1a90df02a6f";
+//
+//		String sha256 = HMACSHA256Utils.HMACSHA256(data.getBytes(),key.getBytes()).toLowerCase();
+//		System.out.println(sha256);
+//		String encrypt = DESUtil.encrypt("{\"liveId\":\"277\",\"os\":\"android\",\"soft_ver\":\"1.1.0\",\"timestamp\":\"1506996757046\",\"v\":\"2fc5a3f5e78e9064d2c138f2fe7824252bf79b56c35c622d7fc62abb5ea19338\"}", "!ln1j2Z9");
+//		String encode = (encrypt);
+//
+//
 //		System.out.println(encode);
-//		String hmacsha256 = HMACSHA256Utils.HMACSHA256("277android1.1.01506925205436".getBytes(), "c2cc2c0f4efc4d3e9e3d4284b957edbf".getBytes());
-		System.out.println(decrypt);
+
+		String date2String = DateUtil.getDate2String("2017-11-03 1517:43:11");
+		System.out.println(date2String);
 
 	}
 

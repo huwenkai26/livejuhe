@@ -232,8 +232,8 @@ public class HttpUtils {
 
 
             // 设置通用的请求属性
-            if(url.contains("rooms")||url.contains("getUrl")){
-            conn.setRequestProperty("accesstoken", "30e8f83be9bf4406ddd5fd83f40c377fcbb37065158123436f5f284ba45635f5");}
+            if(url.contains("rooms")||url.contains("getUrl")||url.contains("queryTVList")){
+            conn.setRequestProperty("accesstoken", "7ec96a0ae3a5a215ce416f919815d558660b60ec459af790dc208db006e09d7d");}
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","okhttp/3.6.0");

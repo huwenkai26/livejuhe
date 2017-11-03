@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jinhe.juhe.livejuhe.mapper.RoomDao">
+    <resultMap id="BaseResultMap" type="com.jinhe.juhe.livejuhe.model.Room">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+
+        <result column="roomid"   jdbcType="VARCHAR" property="roomid"/>
+        <result column="liveid"   jdbcType="VARCHAR" property="liveid"/>
+        <result column="watchnum" jdbcType="VARCHAR" property="watchnum"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="state"    jdbcType="tinyint" property="state"/>
+        <result column="updatedat" jdbcType="VARCHAR" property="updatedat"/>
+        <result column="playurl"  jdbcType="VARCHAR" property="playurl"/>
+        <result column="avatar"   jdbcType="VARCHAR" property="avatar"/>
+
+    </resultMap>
+
+
+    <!-- 保存或更新 -->
+    <insert id="saveOrUpdate" parameterType="com.jinhe.juhe.livejuhe.model.Room">
+        <selectKey keyProperty="count" resultType="int" order="BEFORE">
+            SELECT count(*) AS COUNT FROM room WHERE id=#{id}
+        </selectKey>
+        <!-- 如果大于0则更新 -->
+        <if test="count>0">
+            UPDATE
+            room
+            SET
+            playurl=#{item.playurl}
+            WHERE id=#{item.id}
+        </if>
+        <!-- 如果等于0则保存 -->
+        <if test="count==0">
+            INSERT INTO room(
+            id,roomid,liveid,watchnum,
+            nickname,
+            state,
+            updatedat,
+            playurl,
+            avatar
+            ) VALUES (
+            #{item.id},
+            #{item.roomid},
+            #{item.liveid},
+            #{item.watchnum},
+            #{item.nickname},
+            #{item.state},
+            #{item.updatedat},
+            #{item.playurl},
+            #{item.avatar}
+            )
+        </if>
+    </insert>
+
+
+    <select id="selectByid" parameterType="String">
+        select *  from room where id = #{id};
+    </select>
+
+</mapper>
