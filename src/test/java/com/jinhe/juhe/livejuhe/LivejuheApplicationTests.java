@@ -49,14 +49,12 @@ public class LivejuheApplicationTests {
 //
 //		String sha256 = HMACSHA256Utils.HMACSHA256(data.getBytes(),key.getBytes()).toLowerCase();
 //		System.out.println(sha256);
-//		String encrypt = DESUtil.encrypt("{\"liveId\":\"277\",\"os\":\"android\",\"soft_ver\":\"1.1.0\",\"timestamp\":\"1506996757046\",\"v\":\"2fc5a3f5e78e9064d2c138f2fe7824252bf79b56c35c622d7fc62abb5ea19338\"}", "!ln1j2Z9");
-//		String encode = (encrypt);
-//
-//
-//		System.out.println(encode);
+		String encrypt = DESUtil.decrypt("sQhzkpalix+RARpV0kjaP57/0HD0TPNnTmgH8+LPJDQ49spUMci0HLUSgCbWL7dWDZOboU8I1bX+C/C8jqD/yH6uiaj2X4dniuJXy2PYeiVUIAdyEGkUTWb1azpi0kt5IaJLGfJRo1c5Gwkl92B+6rG+cR2ZHHixE6n0pqu7Yqq/JROcq4QfbLRHRkKdPeApcMTB8ugNA1wQ1m6/Bu+H5vLf2+hz0xvE/6C1Hsiau24sfLx01ThMOpj+TsAwN8lUtBSuW5K+3xCcFzDG4tbPyAiwuGSsHA+/bbXf/qxfKeezqm0mWdNuJbeR51OoRdaW+5leX1Z7ssj/TGLk1P624oriV8tj2HolLSOGMI9tKISjARBx3XzQi1xPExkVqQvXeexmJsOTqFz/52XOR7ZLG24uYSj3kgyMoA2MHGT6LObrXzhz+xgEEYs7pLK5Xx6EWu9KRGbJ3dgn6zjK56YBKnlpQb7NDgKRKQAULtI5wfFeZpYXiZWkTIZtHpuB1rf7EZ6+olr/5qo=", "!ln1j2Z9");
+		String encode = (encrypt);
 
-		String date2String = DateUtil.getDate2String("2017-11-03 1517:43:11");
-		System.out.println(date2String);
+
+		System.out.println(encode);
+
 
 	}
 

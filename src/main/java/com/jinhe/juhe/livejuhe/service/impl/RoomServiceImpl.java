@@ -38,10 +38,11 @@ public class RoomServiceImpl implements RoomService {
             }
 
         }catch (Exception e){
-            System.out.println("插入一条房间数据");
+
         }finally {
             if (selectroom!=null &&selectroom.getPlayurl() != null && !selectroom.getPlayurl().isEmpty()) {
                 roomDao.updateByPrimaryKey(room);
+                System.out.println("更新一房间信息"+room);
                 return true;
             } else {
                 return false;
@@ -56,6 +57,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void insertRoom(Room room) {
         roomDao.insert(room);
+        System.out.println("插入一房间信息"+room);
     }
 
     @Override
@@ -101,6 +103,7 @@ public class RoomServiceImpl implements RoomService {
         Example example = new Example(Room.class);
         example.createCriteria().andEqualTo("id", romveroom.getId());
         roomDao.deleteByExample(example);
+        System.out.println("删除一房间信息"+romveroom);
     }
 
 

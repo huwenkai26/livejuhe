@@ -84,4 +84,14 @@ public class Room {
 
     private String avatar;
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id='" + id + '\'' +
+                ", roomid='" + roomid + '\'' +
+                ", liveid='" + liveid + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", playurl='" + playurl + '\'' +
+                '}';
+    }
 }

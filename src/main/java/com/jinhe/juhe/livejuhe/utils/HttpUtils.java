@@ -207,9 +207,10 @@ public class HttpUtils {
      *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @param isproxy
      *               是否使用代理模式
+     * @param map
      * @return 所代表远程资源的响应结果
      */
-    public static String sendPost(String url, String param,boolean isproxy) {
+    public static String sendPost(String url, String param, boolean isproxy, Map map) {
         OutputStreamWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -230,10 +231,18 @@ public class HttpUtils {
             conn.setDoInput(true);
             conn.setRequestMethod("POST");    // POST方法
 
-
+            conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
             // 设置通用的请求属性
-            if(url.contains("rooms")||url.contains("getUrl")||url.contains("queryTVList")){
-            conn.setRequestProperty("accesstoken", "7ec96a0ae3a5a215ce416f919815d558660b60ec459af790dc208db006e09d7d");}
+            if(!url.contains("index")){
+                if (map != null) {
+                    conn.setRequestProperty("uuid", (String) map.get("uuid"));
+                    conn.setRequestProperty("accesstoken", (String) map.get("accesstoken"));
+                }
+                else {
+                    conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
+                    conn.setRequestProperty("accesstoken", "b63fb4ac72ced847494b467a218e872b4a0c279e7ba5aa0e78c782609aabbb0a");
+                }
+              ;}
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","okhttp/3.6.0");
@@ -242,7 +251,7 @@ public class HttpUtils {
             conn.setRequestProperty("network", "WIFI");
             conn.setRequestProperty("osn", "ANDROID");
             conn.setRequestProperty("osv", "4.4.4");
-            conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
+
             conn.setRequestProperty("Host", "api.jushiyaoye.com");
 
             conn.connect();
