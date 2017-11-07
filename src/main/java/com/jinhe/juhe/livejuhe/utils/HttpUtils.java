@@ -231,7 +231,7 @@ public class HttpUtils {
             conn.setDoInput(true);
             conn.setRequestMethod("POST");    // POST方法
 
-            conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
+
             // 设置通用的请求属性
             if(!url.contains("index")){
                 if (map != null) {
@@ -239,10 +239,12 @@ public class HttpUtils {
                     conn.setRequestProperty("accesstoken", (String) map.get("accesstoken"));
                 }
                 else {
-                    conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
-                    conn.setRequestProperty("accesstoken", "b63fb4ac72ced847494b467a218e872b4a0c279e7ba5aa0e78c782609aabbb0a");
+                    conn.setRequestProperty("uuid", "b2d40653-f3dc-4a58-a84f-b210553f9814");
+                    conn.setRequestProperty("accesstoken", "5ff94f871ab7d083bbe2f77c62f59ded547bf1f30196361f7ea41a6d340afa3f");
                 }
-              ;}
+              ;}else {
+                conn.setRequestProperty("uuid", "31a1a17f-4007-42bd-b07f-c1cd1c64da8b");
+            }
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","okhttp/3.6.0");
@@ -250,9 +252,80 @@ public class HttpUtils {
             conn.setRequestProperty("appv", "17");
             conn.setRequestProperty("network", "WIFI");
             conn.setRequestProperty("osn", "ANDROID");
-            conn.setRequestProperty("osv", "4.4.4");
+            conn.setRequestProperty("osv", "4.3.1");
 
             conn.setRequestProperty("Host", "api.jushiyaoye.com");
+
+            conn.connect();
+
+            // 获取URLConnection对象对应的输出流
+            out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            // 发送请求参数
+            out.write(param);
+            // flush输出流的缓冲
+            out.flush();
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            System.out.println("发送 POST 请求出现异常！"+e);
+            e.printStackTrace();
+        }
+        //使用finally块来关闭输出流、输入流
+        finally{
+            try{
+                if(out!=null){
+                    out.close();
+                }
+                if(in!=null){
+                    in.close();
+                }
+            }
+            catch(IOException ex){
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 向指定 URL 发送POST方法的请求
+     *
+     * @param url
+     *            发送请求的 URL
+     * @param param
+     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     */
+    public static String sendPaopaoPost(String url, String param) {
+        OutputStreamWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            HttpURLConnection conn = null;
+            conn = (HttpURLConnection) realUrl.openConnection();
+            // 打开和URL之间的连接
+
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("POST");    // POST方法
+
+
+            // 设置通用的请求属性
+
+            conn.setRequestProperty("Accept-Encoding", "identity");
+            conn.setRequestProperty("Content-Type","text/plain;charset=UTF-8");
+            conn.setRequestProperty("Cookie","sails.sid=s%3A6QJCVQbI6UqREdLHBWfoW7oVXnsOY5i5.EW%2FNjULt7cMLAp%2BEbqegHDUg%2FrAmtNkn6XlSgTKZIJI; Path=/; Expires=Tue, 07 Nov 2017 06:12:02 GMT; HttpOnly");
+            conn.setRequestProperty("User-Agent","Dalvik/1.6.0 (Linux; U; Android 4.4.4; HM NOTE 1S MIUI/5.7.16)");
+            conn.setRequestProperty("Host","www.8892236.cn:1340");
+            conn.setRequestProperty("Connection","Keep-Alive");
+            conn.setRequestProperty("Content-Length","112");
+
+
 
             conn.connect();
 

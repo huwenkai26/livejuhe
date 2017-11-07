@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc//启动MVC
 @EnableAutoConfiguration
 @SpringBootApplication//SpringBoot启动核心
-@EnableScheduling//开启定时任务
+//@EnableScheduling//开启定时任务
 public class LivejuheApplication {
 
 

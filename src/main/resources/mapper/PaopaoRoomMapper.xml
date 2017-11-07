@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jinhe.juhe.livejuhe.mapper.RoomDao">
-    <resultMap id="BaseResultMap" type="com.jinhe.juhe.livejuhe.model.Room">
+<mapper namespace="com.jinhe.juhe.livejuhe.mapper.PaopaoRoomDao">
+    <resultMap id="BaseResultMap" type="com.jinhe.juhe.livejuhe.model.PaopaoRoom">
         <id column="id" jdbcType="VARCHAR" property="id"/>
 
         <result column="roomid"   jdbcType="VARCHAR" property="roomid"/>
@@ -18,5 +18,5 @@
     </resultMap>
 
 
-
+    
 </mapper>

@@ -24,7 +24,7 @@ public class VkboxController {
     private static String getplayurl = "http://api.jushiyaoye.com/apiv2/getUrl";
     private static String TVurl = "http://api.jushiyaoye.com/apiv2/queryTVList";
     private List<Thread> Threadlist;
-    private String key = "b466e3f02af24a89b23df0e7538ea5fc";
+    private String key = "ce788cb3c9574d4e88b8003ba9e9614e";
 
 
     @Autowired
@@ -149,24 +149,24 @@ public class VkboxController {
 
                 Map usermap = new HashMap<String,String>();
 
-                String accesstoken = "b63fb4ac72ced847494b467a218e872b4a0c279e7ba5aa0e78c782609aabbb0a";
+                String accesstoken = "d4678f6023c762fb262a9010a636a2fd8e8318233129f6270542535d94b0acac";
                 String uuid = "31a1a17f-4007-42bd-b07f-c1cd1c64da8b";
-                String key = "b466e3f02af24a89b23df0e7538ea5fc";
+                String key = "93b4e0bd231a4a26ad004ec901572637";
                 usermap.put("key", key);
                 usermap.put("accesstoken", accesstoken);
                 usermap.put("uuid", uuid);
                 Map usermap2 = new HashMap();
-                String key2 = "7ce70dda47584cc9a5ba9c8396b2d955";
-                String accesstoken2 = "dede153c6a6964eb8e3e0bb157e320a5b6c7e96cd334c73f0b8f2679e7ddf4d4";
-                String uuid2 = "762c0a07-e0a6-42c4-a6e1-2e3217e8446d";
+                String key2 = "9fb7084384e84c4596684a866e870d7d";
+                String accesstoken2 = "1f80f37ddee8c88f381ee624c845f10c7ba5e10c2befee1d5c3c539a2c420175";
+                String uuid2 = "e363fa42-4bf8-4b98-a466-f683210da95f";
                 usermap2.put("key", key2);
                 usermap2.put("accesstoken", accesstoken2);
                 usermap2.put("uuid", uuid2);
 
                 Map usermap3 = new HashMap();
-                String key3= "2aa3dd3c8a9e4768b1ed13c04ed49006";
-                String accesstoken3 = "9f576280fa0be77244e22ac28ded93cbdfa7816e48bfbbf6815820883b1c5bc2";
-                String uuid3 = "e0be948d-3fc5-46a1-9834-991c1969950b";
+                String key3= "222b65c82731456faa61c31c0df0cfa1";
+                String accesstoken3 = "9ef400b890c020601598a9c0140ad5f660b223b10d3db0fa769eea7d7c52e242";
+                String uuid3 = "ab481221-7327-466f-bcd7-fa2fe0e36ae1";
                 usermap3.put("key", key3);
                 usermap3.put("accesstoken", accesstoken3);
                 usermap3.put("uuid", uuid3);
@@ -174,6 +174,7 @@ public class VkboxController {
                 users.add(usermap);
                 users.add(usermap2);
                 users.add(usermap3);
+
 
 
 
@@ -194,6 +195,7 @@ public class VkboxController {
                     long hqtime = Long.parseLong(updatedat);
                     s = (System.currentTimeMillis() - hqtime) / (1000 * 60);
                 }
+//                if(selectroom.getLiveid()==)
                 if (s != -1 && s < 10) {
                     continue;
                 }
