@@ -388,8 +388,8 @@ var hexcase = 0, b64pad = "", chrsz = 8, CryptoJS = CryptoJS || function (e, t) 
 
 
 
-function decrypt(conten) {
-    var loginMd5 = "b6ad5c3f9a5cb5ed6cb599389fa5a6ce";
+function decrypt(conten,loginMd5) {
+    var loginMd5 =loginMd5;
     var t = loginMd5.substring(0, 16),
         A = conten,
         r = CryptoJS.AES.decrypt(A, CryptoJS.enc.Utf8.parse(t), {mode: CryptoJS.mode.ECB});
@@ -397,8 +397,8 @@ function decrypt(conten) {
     return e;
 }
 
-function getSign() {
-    var loginMd5 = "b6ad5c3f9a5cb5ed6cb599389fa5a6ce";
+function getSign(loginMd5) {
+    var loginMd5 = loginMd5;
     var e = Date.parse(new Date), t = {};
     timestamp = e / 1e3,
     i = hex_md5(timestamp + loginMd5 + "1234");

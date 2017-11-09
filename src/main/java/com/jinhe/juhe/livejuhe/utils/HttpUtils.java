@@ -319,7 +319,7 @@ public class HttpUtils {
 
             conn.setRequestProperty("Accept-Encoding", "identity");
             conn.setRequestProperty("Content-Type","text/plain;charset=UTF-8");
-            conn.setRequestProperty("Cookie","sails.sid=s%3A6QJCVQbI6UqREdLHBWfoW7oVXnsOY5i5.EW%2FNjULt7cMLAp%2BEbqegHDUg%2FrAmtNkn6XlSgTKZIJI; Path=/; Expires=Tue, 07 Nov 2017 06:12:02 GMT; HttpOnly");
+            conn.setRequestProperty("Cookie","sails.sid=s%3AvaOXE8hds7QDOX002iFtASqolgnAB6eX.GwoMBat1gNkltp8%2BJXFwV18vhHjbXO6nurXSMxLnCig; Path=/; Expires=Thu, 09 Nov 2017 13:18:39 GMT; HttpOnly");
             conn.setRequestProperty("User-Agent","Dalvik/1.6.0 (Linux; U; Android 4.4.4; HM NOTE 1S MIUI/5.7.16)");
             conn.setRequestProperty("Host","www.8892236.cn:1340");
             conn.setRequestProperty("Connection","Keep-Alive");

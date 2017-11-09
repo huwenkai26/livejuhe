@@ -12,7 +12,7 @@ import java.util.Set;
 public class JavaCallJsUtils {
 
 
-    public static String JavaCallJsDecrypt(String data) {
+    public static String JavaCallJsDecrypt(String data,String loginMd5) {
         // 得到一个ScriptEngine对象
         ScriptEngineManager maneger = new ScriptEngineManager();
         ScriptEngine engine = maneger.getEngineByName("JavaScript");
@@ -29,7 +29,7 @@ public class JavaCallJsUtils {
             if (engine instanceof Invocable) {
                 // 调用JS方法
                 Invocable invocable = (Invocable) engine;
-                String result = (String) invocable.invokeFunction("decrypt",data);
+                String result = (String) invocable.invokeFunction("decrypt",data,loginMd5);
                 return result;
             }
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class JavaCallJsUtils {
         return "";
     }
 
-    public static Set<Map.Entry<String, Object>> JavaCallJsGetGsign() {
+    public static Set<Map.Entry<String, Object>> JavaCallJsGetGsign(String loginMd5) {
         // 得到一个ScriptEngine对象
         ScriptEngineManager maneger = new ScriptEngineManager();
         ScriptEngine engine = maneger.getEngineByName("JavaScript");
@@ -61,7 +61,7 @@ public class JavaCallJsUtils {
             if (engine instanceof Invocable) {
                 // 调用JS方法
                 Invocable invocable = (Invocable) engine;
-                ScriptObjectMirror result = (ScriptObjectMirror) invocable.invokeFunction("getSign");
+                ScriptObjectMirror result = (ScriptObjectMirror) invocable.invokeFunction("getSign",loginMd5);
                 Set<Map.Entry<String, Object>> entries = result.entrySet();
                 for (Map.Entry<String, Object> entry : entries) {
                     System.out.println(entry.toString());

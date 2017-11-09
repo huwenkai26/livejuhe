@@ -1,13 +1,8 @@
 package com.jinhe.juhe.livejuhe.model;
 
 public class PaopaoRoom {
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
 
     private String id;
     private String uid;
@@ -20,6 +15,16 @@ public class PaopaoRoom {
     private String title;
     private String nums;
     private String playurl;
+
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUid() {
         return uid;

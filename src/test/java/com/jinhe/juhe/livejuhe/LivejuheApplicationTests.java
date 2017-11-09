@@ -56,9 +56,8 @@ public class LivejuheApplicationTests {
 
         for (int i = 0; i < 100; i++) {
 
-            MvcResult result = mockMvc.perform(get("/paopao/getroomlist/aiba"))
+            MvcResult result = mockMvc.perform(get("/paopao/login"))
                     .andExpect(status().isOk())// 模拟向testRest发送get请求
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))// 预期返回值的媒体类型text/plain;charset=UTF-8
                     .andReturn();// 返回执行请求的结果
 
             System.out.println(result.getResponse().getContentAsString());
@@ -104,16 +103,6 @@ public class LivejuheApplicationTests {
 //		String	encrypt = DESUtil.decrypt("sQhzkpalix+RARpV0kjaP57/0HD0TPNnigo4i7jNa/c2xCvSegXP9iXYxNXnae6OMQOUQSdF9Qn+C/C8jqD/yH6uiaj2X4dniuJXy2PYeiVUIAdyEGkUTWb1azpi0kt5+J5IuDTNCWsLaw1OKA1OrSM3dpIkaRbir5INCCRiXiTilEz3lnMj/TpV1Fr2iMMElg+GSfZQkVygJDCRx3QzPoMsOrDcM8XC/6C1Hsiau26v0VQjEQV6zPzAEAYoHqw4lHiHfT30TTukR/j8hXZ0qFyEJ9gLMDKvkXKenRZ60OpZ2b0E+RflHwIGmj8J1pY3hn7q3IPYTNL/TGLk1P624oriV8tj2HolLSOGMI9tKISjARBx3XzQi1xPExkVqQvXeexmJsOTqFz/52XOR7ZLG24uYSj3kgyMoA2MHGT6LObrXzhz+xgEEYs7pLK5Xx6EWu9KRGbJ3dgn6zjK56YBKnlpQb7NDgKRKQAULtI5wfFeZpYXiZWkTIZtHpuB1rf7EZ6+olr/5qo=", "!ln1j2Z9");
 //		String encode = URLEncoder.de(encrypt);
 
-        Set<Map.Entry<String, Object>> entries = JavaCallJsUtils.JavaCallJsGetGsign();
-        for (Map.Entry<String, Object> entry : entries) {
-            if (entry.getKey().equals("timestamp")) {
-                this.timestamp = (String) entry.getValue();
-            } else {
-                this.sign = (String) entry.getValue();
-            }
-        }
-
-        System.out.println(timestamp.toString() + sign);
 
     }
 

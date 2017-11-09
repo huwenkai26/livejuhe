@@ -11,7 +11,7 @@ public interface RoomService {
     void insertRoom(Room room);
     void clearRoom();
 
-    void saveOrUpdate(Room room);
+    Room saveOrUpdate(Room room);
 
     Room seletByid(Room room);
 
