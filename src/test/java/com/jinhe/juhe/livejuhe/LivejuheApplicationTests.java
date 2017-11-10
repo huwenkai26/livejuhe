@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.jinhe.juhe.livejuhe.mapper.PaopaoRoomDao;
 import com.jinhe.juhe.livejuhe.utils.JavaCallJsUtils;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +33,9 @@ public class LivejuheApplicationTests {
     private String timestamp;
     private String sign;
 
+
     @Test
+
     public void contextLoads() {
     }
 
@@ -91,17 +95,12 @@ public class LivejuheApplicationTests {
         System.out.println(result.getResponse().getContentAsString());
     }
 
+
+
+
+
     @Test
     public void testShow() throws Exception {//	System.out.println(sign);
-
-
-        long timeMillis = System.currentTimeMillis();
-//		String id = 277;
-//		String data = id + "android1.1.0" + timeMillis;
-//
-//		String sha256 = HMACSHA256Utils.HMACSHA256(data.getBytes(), key.getBytes()).toLowerCase();
-//		String	encrypt = DESUtil.decrypt("sQhzkpalix+RARpV0kjaP57/0HD0TPNnigo4i7jNa/c2xCvSegXP9iXYxNXnae6OMQOUQSdF9Qn+C/C8jqD/yH6uiaj2X4dniuJXy2PYeiVUIAdyEGkUTWb1azpi0kt5+J5IuDTNCWsLaw1OKA1OrSM3dpIkaRbir5INCCRiXiTilEz3lnMj/TpV1Fr2iMMElg+GSfZQkVygJDCRx3QzPoMsOrDcM8XC/6C1Hsiau26v0VQjEQV6zPzAEAYoHqw4lHiHfT30TTukR/j8hXZ0qFyEJ9gLMDKvkXKenRZ60OpZ2b0E+RflHwIGmj8J1pY3hn7q3IPYTNL/TGLk1P624oriV8tj2HolLSOGMI9tKISjARBx3XzQi1xPExkVqQvXeexmJsOTqFz/52XOR7ZLG24uYSj3kgyMoA2MHGT6LObrXzhz+xgEEYs7pLK5Xx6EWu9KRGbJ3dgn6zjK56YBKnlpQb7NDgKRKQAULtI5wfFeZpYXiZWkTIZtHpuB1rf7EZ6+olr/5qo=", "!ln1j2Z9");
-//		String encode = URLEncoder.de(encrypt);
 
 
     }

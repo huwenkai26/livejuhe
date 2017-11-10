@@ -3,19 +3,27 @@ package com.jinhe.juhe.livejuhe.model;
 public class PaopaoRoom {
 
 
-
     private String id;
     private String uid;
-    private String catchTime;
+
     private String city;
-    private String avatar_thumb;
+
     private String user_nicename;
-    private String begin_time;
+
     private String avatar;
     private String title;
     private String nums;
     private String playurl;
 
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    private String updatetime;
 
 
     public String getId() {
@@ -34,13 +42,6 @@ public class PaopaoRoom {
         this.uid = uid;
     }
 
-    public String getCatchTime() {
-        return catchTime;
-    }
-
-    public void setCatchTime(String catchTime) {
-        this.catchTime = catchTime;
-    }
 
     public String getCity() {
         return city;
@@ -50,13 +51,6 @@ public class PaopaoRoom {
         this.city = city;
     }
 
-    public String getAvatar_thumb() {
-        return avatar_thumb;
-    }
-
-    public void setAvatar_thumb(String avatar_thumb) {
-        this.avatar_thumb = avatar_thumb;
-    }
 
     public String getUser_nicename() {
         return user_nicename;
@@ -66,13 +60,6 @@ public class PaopaoRoom {
         this.user_nicename = user_nicename;
     }
 
-    public String getBegin_time() {
-        return begin_time;
-    }
-
-    public void setBegin_time(String begin_time) {
-        this.begin_time = begin_time;
-    }
 
     public String getAvatar() {
         return avatar;
@@ -104,5 +91,17 @@ public class PaopaoRoom {
 
     public void setPlayurl(String playurl) {
         this.playurl = playurl;
+    }
+
+    @Override
+    public String toString() {
+        return "PaopaoRoom{" +
+                "id='" + id + '\'' +
+                ", uid='" + uid + '\'' +
+                ", city='" + city + '\'' +
+                ", title='" + title + '\'' +
+                ", playurl='" + playurl + '\'' +
+                ", updatetime='" + updatetime + '\'' +
+                '}';
     }
 }

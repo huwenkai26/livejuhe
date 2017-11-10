@@ -16,7 +16,7 @@ import java.util.Map;
  * author geekcattle
  * date 2016/11/23 0023 下午 14:53
  */
-public class DateUtil {
+public class DateUtils {
     private static String ymdhms = "yyyy-MM-dd HH:mm:ss";
     private static String ymd = "yyyy-MM-dd";
     public static SimpleDateFormat ymdSDF = new SimpleDateFormat(ymd);
@@ -40,13 +40,22 @@ public class DateUtil {
     public static String getCurrentTime() {
         return yyyyMMddHHmmss.format(new Date());
     }
+
+    public static String dateToStamp(String s) throws ParseException{
+        String res;
+        Date date = yyyyMMddHHmmss.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
+
     /**
      * 获得当前时间(日期类型)
      * 格式：2014-12-02 10:38:53
      * @return String
      */
     public static Date getSysTime() {
-        return DateUtil.stringToDate(getCurrentTime(), ymdhms);
+        return DateUtils.stringToDate(getCurrentTime(), ymdhms);
     }
 
     /**
@@ -55,7 +64,7 @@ public class DateUtil {
      * @return String
      */
     public static Date getSysDate() {
-        return DateUtil.stringToDate(getCurrentTime(), ymd);
+        return DateUtils.stringToDate(getCurrentTime(), ymd);
     }
 
     /**

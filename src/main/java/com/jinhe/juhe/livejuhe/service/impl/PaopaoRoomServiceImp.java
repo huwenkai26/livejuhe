@@ -12,7 +12,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 @Service
-public class PaopaoRoomServiceImp implements PaopaoRoomService{
+public class PaopaoRoomServiceImp implements PaopaoRoomService {
 
     @Autowired
     private PaopaoRoomDao paopaoRoomDao;
@@ -20,7 +20,12 @@ public class PaopaoRoomServiceImp implements PaopaoRoomService{
 
     @Override
     public void insert(PaopaoRoom roomEntity) {
-        paopaoRoomDao.insert(roomEntity);
+        try {
+            paopaoRoomDao.insert(roomEntity);
+        }catch (Exception e){
+            System.out.println(roomEntity);
+        }
+
     }
 
     @Override
@@ -30,7 +35,7 @@ public class PaopaoRoomServiceImp implements PaopaoRoomService{
             Example example = new Example(Room.class);
             example.createCriteria().andEqualTo("id", paopaoRoom.getId());
             List<PaopaoRoom> rooms = paopaoRoomDao.selectByExample(example);
-            if(rooms!=null&&rooms.size()!=0){
+            if (rooms != null && rooms.size() != 0) {
                 selectroom = rooms.get(0);
                 return selectroom;
             }
@@ -39,5 +44,30 @@ public class PaopaoRoomServiceImp implements PaopaoRoomService{
             return null;
         }
         return selectroom;
+    }
+
+    @Override
+    public boolean update(PaopaoRoom paopaoRoom) {
+        PaopaoRoom selectroom = null;
+        try {
+            Example example = new Example(PaopaoRoom.class);
+            example.createCriteria().andEqualTo("id", paopaoRoom.getId());
+            List<PaopaoRoom> rooms = paopaoRoomDao.selectByExample(example);
+            if (rooms != null && rooms.size() != 0) {
+                selectroom = rooms.get(0);
+            }
+
+        } catch (Exception e) {
+
+        } finally {
+            if (selectroom != null && selectroom.getPlayurl() != null && !selectroom.getPlayurl().isEmpty()) {
+                paopaoRoomDao.updateByPrimaryKey(paopaoRoom);
+                System.out.println("更新一房间信息" + paopaoRoom);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 }

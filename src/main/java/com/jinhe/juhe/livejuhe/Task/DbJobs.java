@@ -2,11 +2,13 @@ package com.jinhe.juhe.livejuhe.Task;
 
 import com.alibaba.fastjson.JSON;
 import com.jinhe.juhe.livejuhe.Controller.VkboxController;
+import com.jinhe.juhe.livejuhe.mapper.PaopaoRoomDao;
 import com.jinhe.juhe.livejuhe.model.*;
 import com.jinhe.juhe.livejuhe.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import tk.mybatis.mapper.entity.Example;
 
 import java.net.URLEncoder;
 import java.util.Collections;
@@ -14,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Component
-public class Jobs {
+public class DbJobs {
     public final static long ONE_Minute =  5*60 * 1000;
     private static String url = "http://api.jushiyaoye.com/apiv2/queryZhiBoIndex";
     private static String roomsurl = "http://api.jushiyaoye.com/apiv2/rooms";
@@ -28,7 +30,7 @@ public class Jobs {
 //    private VkboxController vkboxController;
 //    @Scheduled(fixedDelay=ONE_Minute)
 //    public void fixedDelayJob(){
-//        String currentTime = DateUtil.getCurrentTime();
+//        String currentTime = DateUtils.getCurrentTime();
 //        System.out.println("开启定时任务："+currentTime);
 //        try {
 //            long timeMillis = System.currentTimeMillis();
@@ -66,12 +68,16 @@ public class Jobs {
 //
 
 
+    @Autowired
+    PaopaoRoomDao paopaoRoomDao;
 
+    @Scheduled(cron="0 0 3 * * ?")
+    public void PaopaoClearTask() {
+        Example example = new Example(PaopaoRoom.class);
 
-    @Scheduled(fixedDelay=6000)
-    public void fixedDelayJob3() {
-        String currentTime = DateUtil.getCurrentTime();
-        System.out.println("开启定时任务2：" + currentTime);
+        example.createCriteria().andLessThanOrEqualTo("updatetime",DateUtils.getYesterdayYYYYMMDD() );
+        int i = paopaoRoomDao.deleteByExample(example);
+        System.out.println("删除昨天房间信息"+i+"条");
 
     }
 
