@@ -25,8 +25,8 @@ public class PaopaoController {
 
     private String timestamp = "";
     private String loginMd5 = "5e10bc67655fa67f15ebf6fd61eecfd2";
-    private String loginMd51 = "d48db6a300a1d2a67d257d625b1a33b1";
-    private String loginMd52 = "5e10bc67655fa67f15ebf6fd61eecfd2";
+    private String loginMd51 = "544abbb5710a2f00404f5fa7b751f5fa";
+    private String loginMd52 = "342eaf3765863cdcdbf687477998afb9";
     private String sign = "";
     private static Logger logger = Logger.getLogger(PaopaoController.class);
 
@@ -66,11 +66,11 @@ public class PaopaoController {
 
             }
             String decrypt = JavaCallJsUtils.JavaCallJsDecrypt(result, loginMd53);
-            System.out.println(decrypt);
+            System.out.println("请求房间信息---》"+decrypt);
 
             PaopaoBasebean paopaoBasebean = JSON.parseObject(decrypt, PaopaoBasebean.class);
             if (paopaoBasebean == null) {
-                System.out.println(decrypt);
+                System.out.println("JSON错误--》"+decrypt);
                 System.out.println("json解析错误PaopaoBasebean 稍等一分钟");
                 Thread.sleep(60 * 1000);
 
@@ -79,7 +79,7 @@ public class PaopaoController {
             }
             PaopaoRoomBean paopaoRoomBean = JSON.parseObject(paopaoBasebean.data, PaopaoRoomBean.class);
             if (paopaoRoomBean == null) {
-                System.out.println(paopaoBasebean.data);
+                System.out.println("bean错误"+paopaoBasebean.data);
                 System.out.println("json解析错误paopaoRoomBean 稍等一分钟");
                 Thread.sleep(60 * 1000);
 
@@ -141,13 +141,13 @@ public class PaopaoController {
                 result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\"}", user);
 
             }
-            System.out.println(result);
+            System.out.println("请求结果"+result);
             String decrypt = JavaCallJsUtils.JavaCallJsDecrypt(result, this.loginMd5);
-            System.out.println(decrypt);
+            System.out.println("解密结果"+decrypt);
 
             PaopaoBasebean paopaoBasebean = JSON.parseObject(decrypt, PaopaoBasebean.class);
             if (paopaoBasebean == null) {
-                System.out.println(decrypt);
+                System.out.println("json错误"+decrypt);
                 System.out.println("json解析错误PaopaoBasebean 稍等一分钟" + user);
                 Thread.sleep(60 * 1000);
 
@@ -156,7 +156,7 @@ public class PaopaoController {
             }
             PaopaoRoomBean paopaoRoomBean = JSON.parseObject(paopaoBasebean.data, PaopaoRoomBean.class);
             if (paopaoRoomBean == null) {
-                System.out.println(paopaoBasebean.data);
+                System.out.println("json错误"+paopaoBasebean.data);
                 System.out.println("json解析错误paopaoRoomBean 稍等一分钟" + user);
                 Thread.sleep(60 * 1000);
 
@@ -167,10 +167,11 @@ public class PaopaoController {
                 Collections.reverse(paopaoRoomBean.list);
                 FLAG = false;
             }
-
+            int roomCount = 0;
             for (PaopaoRoom listEntity : paopaoRoomBean.list) {
 
                 //设置id
+
                 listEntity.setId(id + listEntity.getUid());
                 //判断平台属于过滤条件否id.equals("meme") || id.equals("fanguo") || id.equals("yexiu")||id.equals("nanren")||id.equals("tianjiao")||id.equals("rumeng")||id.equals("yemao")||id.equals("qiuqiu")
 
@@ -178,11 +179,12 @@ public class PaopaoController {
                 if (selectRoom != null && listEntity.getUid().equals(selectRoom.getUid())) {
                     listEntity.setPlayurl(selectRoom.getPlayurl());
                     System.out.println("数据库中存在该主播信息 ...跳过播放连接为-->" + selectRoom.getPlayurl());
+                    roomCount++;
                     continue;
                 }
 
 
-                Thread.sleep(1500);
+                Thread.sleep(2000);
 
 
                 String roomresult = HttpUtils.sendPaopaoPost(getroompull, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\",\"channel\":\"" + id + "\",\"room_uid\":\"" + listEntity.getUid() + "\"}", user);
@@ -190,14 +192,15 @@ public class PaopaoController {
                 System.out.println(jsDecrypt);
                 PaopaoRoomUrlBean paopaoRoomUrlBean = JSON.parseObject(jsDecrypt, PaopaoRoomUrlBean.class);
                 if (paopaoRoomUrlBean == null) {
+                    System.out.println("请求播放链接错误"+jsDecrypt);
                     continue;
                 }
                 if (paopaoRoomUrlBean != null && paopaoRoomUrlBean.pull != null && !paopaoRoomUrlBean.pull.isEmpty()) {
                     listEntity.setPlayurl(paopaoRoomUrlBean.pull);
                     listEntity.setUpdatetime(DateUtils.getCurrentTime());
-                    if (!paopaoRoomService.update(listEntity)) {
+
                         paopaoRoomService.insert(listEntity);
-                    }
+                    roomCount++;
                     System.out.println("采集连接" + paopaoRoomUrlBean.pull);
                 } else if (paopaoRoomUrlBean.ret == -1) {
                     System.out.println("该主播停播");
@@ -207,11 +210,7 @@ public class PaopaoController {
 
                 }
             }
-            result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\"}", user);
-            if (result.isEmpty()) {
-
-                System.out.println(result + " 稍等一分钟");
-            }
+            System.out.println("---------------------一共采集到"+roomCount+"主播----------------------------------------");
             return ReturnUtil.Success("操作成功", paopaoRoomBean, null);
         } catch (Exception e) {
             e.printStackTrace();

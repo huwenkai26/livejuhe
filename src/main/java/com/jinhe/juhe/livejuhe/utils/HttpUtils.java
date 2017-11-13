@@ -15,8 +15,8 @@ public class HttpUtils {
     static int I;
     static String Cookie = "sails.sid=s%3AGvllE_Ne5DrL4wyTrLJjcL4FYeVM6VlU.W8ANvRjbl0WE6B2xxcfRGVhhz4xNQdGgrBRDh%2FX0KDA; Path=/; Expires=Fri, 10 Nov 2017 08:45:04 GMT; HttpOnly";
     private static String i;
-    private static String Cookie1 = "sails.sid=s%3AGvllE_Ne5DrL4wyTrLJjcL4FYeVM6VlU.W8ANvRjbl0WE6B2xxcfRGVhhz4xNQdGgrBRDh%2FX0KDA; Path=/; Expires=Fri, 10 Nov 2017 08:45:04 GMT; HttpOnly";
-    private static String Cookie2 = "sails.sid=s%3A5OK-mutlD-24rcJPwT4ozpzFkB-lmGlq.AGZTJHM2NO3EOBF3F23qercwHWfVJL4gJcmqoIpfkZI; Path=/; Expires=Fri, 10 Nov 2017 11:46:35 GMT; HttpOnly";
+    private static String Cookie1 = "sails.sid=s%3AggX9dfEgmf0NPMtqs62dsdUUi7z83CUf.A2Zv8HnUOb%2BEkqcBdup0ldp6KV0hp7UcPiSshK5XHt8; Path=/; Expires=Mon, 13 Nov 2017 17:34:32 GMT; HttpOnly";
+    private static String Cookie2 = "sails.sid=s%3AggX9dfEgmf0NPMtqs62dsdUUi7z83CUf.A2Zv8HnUOb%2BEkqcBdup0ldp6KV0hp7UcPiSshK5XHt8; Path=/; Expires=Mon, 13 Nov 2017 17:34:32 GMT; HttpOnly";
     private static String Cookie3 = "sails.sid=s%3AiazsrATvjLDgXQomW_SSajfF8oE_08hs.07CU4JWKcXewCqUhod0euB3lO6mI%2BlLIGnIePgHGVro; Path=/; Expires=Sat, 11 Nov 2017 06:08:58 GMT; HttpOnly";
 
     /**
@@ -312,7 +312,7 @@ public class HttpUtils {
                 Cookie = Cookie3;
             }
         }
-        System.out.println(url + param);
+        System.out.println("sendPaopaoPost=>>>>>"+url + param);
         OutputStreamWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -334,7 +334,7 @@ public class HttpUtils {
             conn.setRequestProperty("Content-Type", "text/plain;charset=UTF-8");
 
             conn.setRequestProperty("Cookie", Cookie);
-            System.out.println(Cookie);
+            System.out.println("Cookice-->>>"+Cookie);
             conn.setRequestProperty("User-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.4.4; HM NOTE 1S MIUI/5.7.16)");
             conn.setRequestProperty("Host", "www.8892236.cn:1340");
             conn.setRequestProperty("Connection", "Keep-Alive");
