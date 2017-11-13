@@ -21,6 +21,7 @@ public class PaopaoController {
     private static String getroompull = "http://www.8892236.cn:1340/apichannel/getroompull";
     private static String loginUrl = "http://www.8892236.cn:1340/apilogin";
 
+    private boolean FLAG = true;
 
     private String timestamp = "";
     private String loginMd5 = "5e10bc67655fa67f15ebf6fd61eecfd2";
@@ -31,36 +32,40 @@ public class PaopaoController {
 
     @Autowired
     private PaopaoRoomService paopaoRoomService;
+    private String loginMd53 = "531fb3a20f6c894293e975b58b3d7c6d";
 
 
     @RequestMapping(value = "/paopao/getroomlist/{id}", method = {RequestMethod.GET})
     ModelMap findRoombyid(@PathVariable(value = "id") String id) {
         try {
+            loginMd5 = loginMd53;
+            String timestamp3 = "";
+            String sign3 = "";
             Set<Map.Entry<String, Object>> entries = JavaCallJsUtils.JavaCallJsGetGsign(loginMd5);
             for (Map.Entry<String, Object> entry : entries) {
                 if (entry.getKey().equals("timestamp")) {
-                    this.timestamp = (String) entry.getValue();
+                    timestamp3 = (String) entry.getValue();
                 } else {
-                    this.sign = (String) entry.getValue();
+                    sign3 = (String) entry.getValue();
                 }
             }
-            String result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\"}", "17665381219");
+            String result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp3 + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign3 + "\"}", "13528824689");
             if (result.contains("登陆")) {
-                login("17665381219");
+                login("13528824689");
 
                 entries = JavaCallJsUtils.JavaCallJsGetGsign(loginMd5);
                 for (Map.Entry<String, Object> entry : entries) {
                     if (entry.getKey().equals("timestamp")) {
-                        this.timestamp = (String) entry.getValue();
+                        timestamp3 = (String) entry.getValue();
                     } else {
-                        this.sign = (String) entry.getValue();
+                        sign3 = (String) entry.getValue();
                     }
                 }
 
-                result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\"}", "17665381219");
+                result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp3 + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign3 + "\"}", "13528824689");
 
             }
-            String decrypt = JavaCallJsUtils.JavaCallJsDecrypt(result, this.loginMd5);
+            String decrypt = JavaCallJsUtils.JavaCallJsDecrypt(result, loginMd53);
             System.out.println(decrypt);
 
             PaopaoBasebean paopaoBasebean = JSON.parseObject(decrypt, PaopaoBasebean.class);
@@ -80,8 +85,10 @@ public class PaopaoController {
 
                 return ReturnUtil.Error("json解析错误paopaoRoomBean", null, null);
             }
-            for (PaopaoRoom paopaoRoom : paopaoRoomBean.list) {
 
+
+            for (PaopaoRoom paopaoRoom : paopaoRoomBean.list) {
+                paopaoRoom.setId(id + paopaoRoom.getUid());
                 PaopaoRoom selectRoom = paopaoRoomService.findById(paopaoRoom);
                 if (selectRoom != null && paopaoRoom.getUid().equals(selectRoom.getUid())) {
                     paopaoRoom.setPlayurl(selectRoom.getPlayurl());
@@ -102,10 +109,13 @@ public class PaopaoController {
 
     public ModelMap getRoomlist(String id, String user) {
         try {
+
             if (user.contains("1766")) {
                 loginMd5 = loginMd52;
-            } else {
+            } else if (user.equals("15806075007")) {
                 loginMd5 = loginMd51;
+            } else if (user.equals("13528824689")) {
+                loginMd5 = loginMd53;
             }
             Set<Map.Entry<String, Object>> entries = JavaCallJsUtils.JavaCallJsGetGsign(loginMd5);
             for (Map.Entry<String, Object> entry : entries) {
@@ -131,6 +141,7 @@ public class PaopaoController {
                 result = HttpUtils.sendPaopaoPost(url + id, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\"}", user);
 
             }
+            System.out.println(result);
             String decrypt = JavaCallJsUtils.JavaCallJsDecrypt(result, this.loginMd5);
             System.out.println(decrypt);
 
@@ -151,7 +162,12 @@ public class PaopaoController {
 
                 return ReturnUtil.Error("json解析错误paopaoRoomBean", null, null);
             }
-            int i = 0;
+
+            if (FLAG) {
+                Collections.reverse(paopaoRoomBean.list);
+                FLAG = false;
+            }
+
             for (PaopaoRoom listEntity : paopaoRoomBean.list) {
 
                 //设置id
@@ -166,7 +182,7 @@ public class PaopaoController {
                 }
 
 
-                Thread.sleep(1000);
+                Thread.sleep(1500);
 
 
                 String roomresult = HttpUtils.sendPaopaoPost(getroompull, "{\"timestamp\":" + timestamp + ",\"loginMd5\":\"" + loginMd5 + "\",\"sign\":\"" + sign + "\",\"channel\":\"" + id + "\",\"room_uid\":\"" + listEntity.getUid() + "\"}", user);
@@ -174,7 +190,7 @@ public class PaopaoController {
                 System.out.println(jsDecrypt);
                 PaopaoRoomUrlBean paopaoRoomUrlBean = JSON.parseObject(jsDecrypt, PaopaoRoomUrlBean.class);
                 if (paopaoRoomUrlBean == null) {
-                    break;
+                    continue;
                 }
                 if (paopaoRoomUrlBean != null && paopaoRoomUrlBean.pull != null && !paopaoRoomUrlBean.pull.isEmpty()) {
                     listEntity.setPlayurl(paopaoRoomUrlBean.pull);
@@ -220,6 +236,14 @@ public class PaopaoController {
             if (paopaoUser != null && paopaoUser.ret != 1) {
                 this.loginMd5 = paopaoUser.loginMd5;
                 this.loginMd51 = paopaoUser.loginMd5;
+                System.out.println("重新登录成功" + loginResult);
+            }
+        } else if (user.equals("13528824689")) {
+            String loginResult = HttpUtils.sendPaopaoPost(loginUrl, "{\"channel\":\"ywt\",\"user\":\"13528824689\",\"password\":\"111111\"}", user);
+            PaopaoUser paopaoUser = JSON.parseObject(loginResult, PaopaoUser.class);
+            if (paopaoUser != null && paopaoUser.ret != 1) {
+                this.loginMd5 = paopaoUser.loginMd5;
+                this.loginMd53 = paopaoUser.loginMd5;
                 System.out.println("重新登录成功" + loginResult);
             }
         }

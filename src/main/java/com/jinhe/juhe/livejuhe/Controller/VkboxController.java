@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+//@Controller
 public class VkboxController {
 
 
@@ -30,8 +30,8 @@ public class VkboxController {
     @Autowired
     private RoomService roomService;
 
-    @RequestMapping(value = "/jushiyaoye/index", method = {RequestMethod.GET})
-    @ResponseBody
+//    @RequestMapping(value = "/jushiyaoye/index", method = {RequestMethod.GET})
+//    @ResponseBody
     ModelMap index() {
         try {
             long timeMillis = System.currentTimeMillis();
@@ -53,16 +53,16 @@ public class VkboxController {
         return null;
     }
 
-    @RequestMapping(value = "/jushiyaoye/{id}", method = {RequestMethod.GET})
-    @ResponseBody
+//    @RequestMapping(value = "/jushiyaoye/{id}", method = {RequestMethod.GET})
+//    @ResponseBody
     ModelMap jushiyaoye(@PathVariable(value = "id") Integer id) {
 
         return domain(id + "");
     }
 
 
-    @RequestMapping(value = "/clear/{id}", method = {RequestMethod.GET})
-    @ResponseBody
+//    @RequestMapping(value = "/clear/{id}", method = {RequestMethod.GET})
+//    @ResponseBody
     ModelMap clearRoom(@PathVariable(value = "id") Integer id) {
         String encrypt = null;
         try {

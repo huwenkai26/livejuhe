@@ -17,6 +17,7 @@ public class HttpUtils {
     private static String i;
     private static String Cookie1 = "sails.sid=s%3AGvllE_Ne5DrL4wyTrLJjcL4FYeVM6VlU.W8ANvRjbl0WE6B2xxcfRGVhhz4xNQdGgrBRDh%2FX0KDA; Path=/; Expires=Fri, 10 Nov 2017 08:45:04 GMT; HttpOnly";
     private static String Cookie2 = "sails.sid=s%3A5OK-mutlD-24rcJPwT4ozpzFkB-lmGlq.AGZTJHM2NO3EOBF3F23qercwHWfVJL4gJcmqoIpfkZI; Path=/; Expires=Fri, 10 Nov 2017 11:46:35 GMT; HttpOnly";
+    private static String Cookie3 = "sails.sid=s%3AiazsrATvjLDgXQomW_SSajfF8oE_08hs.07CU4JWKcXewCqUhod0euB3lO6mI%2BlLIGnIePgHGVro; Path=/; Expires=Sat, 11 Nov 2017 06:08:58 GMT; HttpOnly";
 
     /**
      * 编码
@@ -305,8 +306,10 @@ public class HttpUtils {
         } else {
             if (user.contains("1766")) {
                 Cookie = Cookie2;
-            } else {
+            } else if(user.equals("15806075007")){
                 Cookie = Cookie1;
+            }else if(user.equals("13528824689")){
+                Cookie = Cookie3;
             }
         }
         System.out.println(url + param);
@@ -352,11 +355,13 @@ public class HttpUtils {
             while ((line = in.readLine()) != null) {
                 result += line;
             }
-            if (url.contains("apilogin")) {
+            if (url.contains("apilogin") || (null!=(conn.getHeaderField("set-cookie"))&&conn.getHeaderField("set-cookie").isEmpty())) {
                 if (user.contains("1766")) {
                     Cookie2 = conn.getHeaderField("set-cookie");
-                } else {
+                } else if(user.equals("15806075007")){
                     Cookie1 = conn.getHeaderField("set-cookie");
+                }else if(user.equals("13528824689")){
+                    Cookie3= conn.getHeaderField("set-cookie");
                 }
 
 

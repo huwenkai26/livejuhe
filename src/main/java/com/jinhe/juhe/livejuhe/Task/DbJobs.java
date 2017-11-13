@@ -75,7 +75,7 @@ public class DbJobs {
     public void PaopaoClearTask() {
         Example example = new Example(PaopaoRoom.class);
 
-        example.createCriteria().andLessThanOrEqualTo("updatetime",DateUtils.getYesterdayYYYYMMDD() );
+        example.createCriteria().andLessThanOrEqualTo("updatetime",DateUtils.getCurrentDay() );
         int i = paopaoRoomDao.deleteByExample(example);
         System.out.println("删除昨天房间信息"+i+"条");
 
